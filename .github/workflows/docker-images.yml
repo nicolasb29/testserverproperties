@@ -1,0 +1,45 @@
+name: Build and Run Spring Boot with Docker
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew build -x test
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        run: docker build -t testserverproperties .
+
+      - name: Run Docker container
+        run: |
+          docker run -d -p 8080:8080 --name testserverproperties testserverproperties
+          echo "Started"
+
+      - name: Stop container after 30 seconds
+        run: |
+          sleep 30
+          docker logs testserverproperties
+          echo "Stoping"
+          docker stop testserverproperties
+          docker rm testserverproperties
