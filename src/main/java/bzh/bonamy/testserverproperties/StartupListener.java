@@ -1,7 +1,7 @@
 package bzh.bonamy.testserverproperties;
 
-import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.boot.web.server.autoconfigure.ServerProperties;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 import org.slf4j.Logger;
