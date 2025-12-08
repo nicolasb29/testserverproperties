@@ -1,5 +1,5 @@
 package bzh.bonamy.testserverproperties;
-
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.boot.web.server.autoconfigure.ServerProperties;
 import org.springframework.context.ApplicationListener;
@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Optional;
 
 @Component
+@ConditionalOnClass(ServerProperties.class)
 public class StartupListener implements ApplicationListener<ApplicationReadyEvent> {
 
     private static final Logger log = LoggerFactory.getLogger(StartupListener.class);
