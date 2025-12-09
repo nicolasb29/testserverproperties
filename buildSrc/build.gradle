@@ -1,0 +1,13 @@
+plugins {
+    id 'groovy'
+    id 'java-gradle-plugin'
+}
+
+gradlePlugin {
+    plugins {
+        warWithoutEmbeddedTomcat {
+            id = 'bzh.bonamy.war-without-embedded-tomcat'
+            implementationClass = 'bzh.bonamy.WarWithoutEmbeddedTomcatPlugin'
+        }
+    }
+}
